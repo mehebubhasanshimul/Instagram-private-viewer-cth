@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Instagram Account Details</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: url('https://media.giphy.com/media/zqZVwxcVDkwgR7QB4x/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Overlay to make background darker and readable */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 550px;
+            /* Morphez Glass Design */
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
+        }
+
+        .logo-area img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #ff0055;
+            object-fit: cover;
+            box-shadow: 0 0 15px #ff0055;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(0,255,204,0.5);
+        }
+
+        .credits {
+            font-size: 12px;
+            color: #ff3366;
+            font-weight: bold;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .input-group input:focus {
+            border-color: #00ffcc;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #ff0055, #00ffcc);
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.4s;
+            text-transform: uppercase;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.4);
+        }
+
+        /* Result Section */
+        .result-box {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .profile-header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .badge.private { background: #ff3366; }
+        .badge.public { background: #00cc66; }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .posts-list {
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .posts-list a {
+            display: block;
+            color: #00ffcc;
+            text-decoration: none;
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            word-break: break-all;
+        }
+        .posts-list a:hover { text-decoration: underline; }
+
+        .error-msg { color: #ff3366; font-weight: bold; margin-top: 15px;}
+
+        /* Footer & Contact Button */
+        .footer {
+            margin-top: 30px;
+        }
+
+        .btn-telegram {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #229ED9;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-telegram:hover {
+            background: #1c84b5;
+            box-shadow: 0 0 12px #229ED9;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-area">
+        <!-- Joker Logo GIF -->
+        <img src="https://media.giphy.com/media/A7ZbCuv0fJ0POGucwV/giphy.gif" alt="Logo">
+    </div>
+    
+    <h1>Private Instagram Account Details</h1>
+    <div class="credits">Cyber team help Create SHADOW JOKER</div>
+
+    <form method="POST">
+        <div class="input-group">
+            <input type="text" name="username" placeholder="Enter Instagram Username..." required autocomplete="off">
+        </div>
+        <button type="submit" class="btn-submit">Fetch Details</button>
+    </form>
+
+    {% if result %}
+        <div class="result-box">
+            {% if result.error %}
+                <p class="error-msg"><i class="fas fa-exclamation-triangle"></i> {{ result.error }}</p>
+            {% else %}
+                <div class="profile-header">
+                    <img src="{{ result.profile_pic if result.profile_pic else 'https://via.placeholder.com/150' }}" alt="Profile Pic">
+                    <div>
+                        <h3>{{ result.full_name or result.username }}</h3>
+                        <p style="color: #bbb; font-size: 14px;">@{{ result.username }}</p>
+                        {% if result.is_private %}
+                            <span class="badge private"><i class="fas fa-lock"></i> Private Profile</span>
+                        {% else %}
+                            <span class="badge public"><i class="fas fa-lock-open"></i> Public Profile</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div><strong>{{ result.followers }}</strong><br><span style="color:#aaa; font-size:12px;">Followers</span></div>
+                    <div><strong>{{ result.following }}</strong><br><span style="color:#aaa; font-size:12px;">Following</span></div>
+                </div>
+
+                <h4 style="margin-bottom: 8px; color: #ff0055;"><i class="fas fa-images"></i> Links (Collaborated/Timeline):</h4>
+                <div class="posts-list">
+                    {% if result.posts %}
+                        {% for post in result.posts %}
+                            <a href="{{ post }}" target="_blank"><i class="fas fa-link"></i> Post {{ loop.index }}: {{ post }}</a>
+                        {% endfor %}
+                    {% else %}
+                        <p style="color: #aaa; font-size: 13px; text-align: center; padding: 10px;">No reachable posts found.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <!-- Contact Section -->
+    <div class="footer">
+        <a href="https://t.me/SHADOW_JOKER_CTH" target="_blank" class="btn-telegram">
+            <i class="fab fa-telegram-plane"></i> Contact SHADOW_JOKER_CTH
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
